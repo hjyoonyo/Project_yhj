@@ -1,0 +1,89 @@
+--회원테이블
+drop sequence memseq;
+create sequence memseq
+increment by 1
+start with 1
+minvalue 1
+nocache;
+
+drop table members;
+create table members(
+no number(10) primary key,
+id varchar2(20) unique,
+pw varchar2(30),
+name varchar2(20),
+birth date,
+pnum varchar2(20),
+nickname varchar2(21),
+rating number default 1 check(rating in(0,1,2,3)),
+joindate date default sysdate,
+pcount number default 0,
+profile varchar2(100)
+);
+
+insert into members values(1,'yhj2024','2024','윤효정','1996-05-10','010-7928-3405','토마토',0,default,5,'images/tomato.png');
+insert into members values(memseq.nextval,'sook2','1234','김숙','1975-7-6','010-5648-0245','에레나',default,default,default,'images/김숙.png');
+insert into members values(memseq.nextval,'songeun2','1234','송은이','1973-01-04','010-7635-7788','팬츠CEO',default,default,default,'images/송은이.png');
+insert into members values(memseq.nextval,'sunny','1234','신봉선','1980-10-6','010-9354-1357','써니',default,default,default,'images/신봉선.png');
+insert into members values(memseq.nextval,'youne00','1234','유재석','1972-8-14','010-0315-4200','염려맨',default,default,default,'images/유재석.png');
+insert into members values(memseq.nextval,'suudragon','1234','김수용','1966-10-18','010-7864-0054','불가리',default,default,default,'images/김수용.png');
+insert into members values(memseq.nextval,'gichan2','1234','이기찬','1979-01-10','010-1985-3458','애시키',default,default,default,'images/이기찬.png');
+insert into members values(memseq.nextval,'hoho3','1234','조세호','1982-8-9','010-6487-3445','왜안왔어',default,default,default,'images/조세호.png');
+insert into members values(memseq.nextval,'bmkS2','1234','김현정','1973-09-30','010-2548-8888','재즈대모',default,default,default,'images/김현정.png');
+insert into members values(memseq.nextval,'sin02','1234','김신영','1983-12-20','010-2546-2323','다비이모',default,default,default,'images/김신영.png');
+commit;
+
+
+--맛집테이블
+
+drop sequence plseq;
+create sequence plseq
+increment by 1
+start with 1000
+minvalue 1000
+nocache;
+
+drop table place;
+create table place(
+num number primary key,
+pname varchar2(50),
+code varchar2(20) check(code in('1. 한식','2. 중식','3. 일식','4. 양식','5. 기타','6. 카페')),
+pdate date default sysdate,
+location varchar2(10) check(location in('서교동','동교동','연남동')),
+addr varchar2(50),
+link varchar2(30),
+no number references members(no) on delete set null,
+likes number default 0
+);
+
+insert into place values(plseq.nextval,'도원','2. 중식',default,'서교동','월드컵북로5가길 34 B1층','https://naver.me/Gi9Nbpj8',1,default);
+insert into place values(plseq.nextval,'쌥 이리','5. 기타',default,'동교동','월드컵북로2길 25 1층','https://naver.me/Ix7JdzQU',7,default);
+insert into place values(plseq.nextval,'춘풍국밥','1. 한식',default,'서교동','동교로 147-1','https://naver.me/GkKRDHSL',9,default);
+insert into place values(plseq.nextval,'어메이징농카이','5. 기타',default,'서교동','동교로 156-11 1층','https://naver.me/xGOinBkx',9,default);
+insert into place values(plseq.nextval,'올웨이즈어거스트 제작소','6. 카페',default,'연남동','연남로 71 1층','https://naver.me/xzLOxwVQ',3,default);
+insert into place values(plseq.nextval,'서교동 김밥','1. 한식',default,'서교동','동교로 140 1층','https://naver.me/xKQzx6vf',5,default);
+insert into place values(plseq.nextval,'카츠시','3. 일식',default,'동교동','동교로18길 5','https://naver.me/FqSiNQTO',3,default);
+commit;
+
+------------
+code
+한식1
+중식2
+일식3
+양식4
+기타5
+카페6
+------------
+--조인 확인
+select m.no, id, name, pname, location, rating from members m inner join place p on m.no = p.no;
+
+
+
+
+
+
+
+
+
+
+
