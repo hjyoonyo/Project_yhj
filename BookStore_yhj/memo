@@ -1,0 +1,176 @@
+------------회원 테이블
+drop sequence mem_seq;
+create sequence mem_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocache;
+
+drop table members cascade constraints purge;
+create table members(
+	no number primary key,
+	id varchar2(12) unique not null,
+	passwd varchar2(20) not null,
+	name varchar2(12) not null,
+	email varchar2(20) not null unique,
+	address varchar2(100) not null,
+	phone varchar2(15) not null,
+	birth date default sysdate,
+	regdate date default sysdate
+);
+
+insert into members(no, id, passwd, name, email, address, phone, birth, regdate) values(0, 'admin', '1234', '관리자', 'admin@co.kr','서울특별시 마포구 연남로 00 2층 000호','010-1234-1234',default, default);
+insert into members(no, id, passwd, name, email, address, phone, birth, regdate) values(mem_seq.nextval, 'yhj12', '1234', '윤효정', 'yhj12@co.kr','서울특별시 마포구 연남로 22 2층 222호','010-2645-2456',default, default);
+insert into members values(mem_seq.nextval, 'song2', '1234song', '송은이', 'songCEO@vivo.com','서울특별시 마포구 성암로15길 74 4층 사장실','010-9578-2486','96/12/5', '23/1/7');
+insert into members values(mem_seq.nextval, 'kim4000', 'kim1234', '김숙', 'erena@vivo.com','서울특별시 마포구 성암로15길 74 4층 이사실','010-1135-0875','95/12/5', '23/2/9');
+insert into members values(mem_seq.nextval, 'sunnyS2', 'shin1234', '신봉선', 'sun2@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-1505-4279','78/1/2', '20/12/12');
+insert into members values(mem_seq.nextval, 'meme00', 'meme1234', '안영미', 'meme@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-9283-2374','99/1/7', '24/3/2');
+insert into members values(mem_seq.nextval, 'jang12', 'jang1234', '장항준', 'jang@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-4076-2966','77/9/22', '24/5/5');
+insert into members values(mem_seq.nextval, 'illdragon', 'ill1234', '권일용', 'illdragon@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-2634-9707','87/1/9', '24/1/3');
+insert into members values(mem_seq.nextval, 'waterdragon', 'water1234', '김수용', 'waterdragon@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-8656-9575','96/6/17', '24/8/31');
+insert into members values(mem_seq.nextval, 'heewrt', 'hee1234', '김은희', 'hee@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-5357-2456','93/9/16', '23/9/6');
+insert into members values(mem_seq.nextval, 'gue12', 'gue1234', '봉태규', 'gue@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-2456-5765','96/5/10', '20/4/26');
+insert into members values(mem_seq.nextval, 'bum123', 'bum1234', '김성범', 'bum123@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-0786-6986','98/1/7', '21/11/18');
+insert into members values(mem_seq.nextval, 'hyung12', 'hyung1234', '임형준', 'hyung@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-5968-2474','82/10/11', '20/10/11');
+insert into members values(mem_seq.nextval, 'giri12', 'giri1234', '김기리', 'giri@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-6846-4274','75/3/1', '20/10/21');
+insert into members values(mem_seq.nextval, 'sunuu', 'sunu1234', '차선우', 'sunuu@vivo.com','서울특별시 마포구 성암로15길 74 3층 직원실','010-35754-2446','91/11/17', '20/11/17');
+
+
+col no for 99
+col id for a5
+col passwd for a4
+col name for a9
+col email for a10
+col address for a10
+col phone for a10
+
+select * from members;
+
+------------카테고리 테이블
+drop sequence cate_seq;
+create sequence cate_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocache;
+
+drop table category cascade constraints purge;
+create table category(
+	cnum number primary key,
+	code varchar2(30) not null unique,
+	cname varchar2(30) not null,
+	lev char(1) check (lev in('1','2','3','4','5')) not null,
+	ref number default 0
+);
+
+insert into category values(cate_seq.nextval, 'RIT', '문학', 1, 1);
+insert into category values(cate_seq.nextval, 'NOV', '소설', 2, 1);
+insert into category values(cate_seq.nextval, 'POE', '시', 2, 1);
+insert into category values(cate_seq.nextval, 'ESS', '에세이', 2, 1);
+insert into category values(cate_seq.nextval, 'HSS', '인문 | 사회 | 과학', 1, 5);
+insert into category values(cate_seq.nextval, 'HIS', '역사', 2, 5);
+insert into category values(cate_seq.nextval, 'SIE', '과학', 2, 5);
+insert into category values(cate_seq.nextval, 'ART', '예술', 2, 5);
+insert into category values(cate_seq.nextval, 'PHI', '철학', 2, 5);
+insert into category values(cate_seq.nextval, 'MODHIS', '근현대사', 3, 6);
+insert into category values(cate_seq.nextval, 'WORHIS', '세계사', 3, 6);
+
+col cnum for 99
+col cname for a20
+col code for a10
+col lev for a2
+col lef for 99
+
+select * from category;
+
+------------책 테이블
+drop sequence book_seq;
+create sequence book_seq
+increment by 1
+start with 1001
+minvalue 1001
+maxvalue 10000
+nocache;
+
+drop table book cascade constraints purge;
+create table book(
+	bnum number primary key,
+	cnum number references category(cnum) on delete set null,
+	title varchar2(50) not null,
+	author varchar2(50) not null,
+	publisher varchar2(50) not null,
+	bimage varchar2(100) not null,
+	bqty number default 1,
+	price number default 0,
+	point number default 0,
+	sales number default 0,
+	content varchar2(3000),
+	pubdate date default sysdate not null,
+	inputdate date default sysdate
+	);
+
+insert into book(bnum, cnum, title, author, publisher, bimage, bqty, price, point, sales, content, pubdate, inputdate) values(book_seq.nextval, 2, '파과', '구병모', '위즈덤하우스', '파과.jpg', '2304', 15800, 500, 349, '한국 소설에 가장 강렬하게 새겨질 새로운 여성 서사를 탄생시킨 구병모 작가의 《파과》가 새 옷을 갈아입었다. 40여 년간 날카롭고 냉혹하게 청부 살인을 업으로 삼아온 60대 여성 킬러 ‘조각(爪角)’. 몸도 기억도 예전 같지 않게 삐걱거리기 시작하면서 이제는 퇴물 취급을 받는다. 노화와 쇠잔의 과정을 겪으며 조각은 새삼스레 ‘타인’의 눈 속에 둥지를 튼 공허를 발견하게 된다. 소멸의 한 지점을 향해 부지런히 허물어지고 있는 모든 것, 깨지고 상하고 뒤틀린 살아 있는 모든 것에 대해 연민을 느끼며, 조각의 마음속에 어느새 지키고 싶은 것들이 하나둘 생겨나기 시작한다. 《파과》는 짧은 시간 빛나다 사라질 살아 있는 모든 것들에 대한 뜨거운 찬사다.', '18/04/16', '24/04/29');
+insert into book values(book_seq.nextval, 2, '파쇄', '구병모', '위즈덤하우스', '파쇄.jpg', '230', 13200, 200, 42, '위즈덤하우스에서 새롭게 선보이는 단편소설 시리즈 ‘위픽(WEFIC)’이 세상을 향해 그 첫발을 내딛는다. 첫 번째 주인공은 구병모 작가다. 《파쇄》는 그녀의 대표작 《파과》의 외전으로, ‘조각’이라는 인물이 어떻게 킬러가 되었는지 그 시작을 그린 소설이다. 혹독한 훈련을 통해 타인을 부숴버리는 방법을 터득함으로써 결국 자신의 삶도 산산조각 나기를 선택한 조각의 탄생기가 구병모 작가의 압도적인 문장으로 생생히 되살아난다.', '23/03/08', '24/05/06');
+insert into book values(book_seq.nextval, 5, '감시와 처벌', '미셸 푸코', '나남', '감시와 처벌.jpg', '230', 20000, 200, 2, ' 감시와 처벌에 관한 내용을 담은 전문서적입니다.', '20/04/20', '24/05/06');
+ insert into book values(book_seq.nextval, 9, '나는 왜 무기력을 되풀이 하는가', '라이너 풍크', '나무생각', '나는 왜 무기력을 되풀이 하는가.jpg', '230', 13000, 200, 11, '행복과 편안함을 위해 인간의 손으로 탄생시킨 세계가 인간을 소외시키고, 현대인은 그 세계에 비굴하고 무기력하게 복종한다. 익명의 권위에 의지하며 외부에 기대에 따라 만들어진 자아를 받아들이고, 그 과정에서 점점 무력감을 느낀다. 국내에 미발표된 에리히 프롬의 『나는 왜 무기력을 되풀이하는가』는 에리히 프롬이 1930년대부터 쓴 강연록, 논문, 저서의 글을 모은 책으로, 인간이 자력을 되찾을 수 있는 방법을 가르쳐 준다.', '16/08/08', '24/05/06');
+insert into book values(book_seq.nextval, 5, '나쁜 페미니스트', '록산 게이', '문학동네', '나쁜 페미니스트.jpg', '230', 16700, 200, 16, '『나쁜 페미니스트』는 록산 게이가 젠더, 섹슈얼리티, 인종문제, 그리고 정치에 대한 비평과 에세이를 엮어낸 책으로 2014년 출간되어 전 세계적 인기와 화제를 모았다. 이 책이 페미니즘의 정전으로 꼽히는 이유이자, 지금 새로이 읽혀야 하는 이유는 명확하다. 우리 사회는 아직도 페미니스트에게 ‘완전무결함’을 요구하는가 하면, 다른 한편으로는 ‘결점 가득한’ 존재로 낙인찍어 이 단어를 꺼내는 일 자체를 주저하게 만들기 때문이다.', '22/09/23', '24/05/06');
+insert into book values(book_seq.nextval, 3, '날개 환상통', '김혜순', '문학과지성사', '날개 환상통.jpg', '230', 15000, 200, 24, '올해로 등단 40주년을 맞은 한국 시의 뜨거운 이름, 김혜순의 열세 번째 시집 『날개 환상통』. 몸으로 시를 쓰는 시인, '시하는' 시인, 하여 그 이름이 하나의 시학이 된 시인 김혜순의 이번 시집에는 총 72편의 시들이 수록되어 있다. 저자는 이번 시집에서 “시가 나를 ‘새하게’ 했다”고 밝히고 있는데, 이처럼 저자의 시적 상상력은 작별의 자리에서 ‘새하기’를 통해 주체와 객체의 경계를 허물고, 젠더와 상징질서의 구획을 돌파해간다.', '19/03/31', '24/05/06');
+insert into book values(book_seq.nextval, 9, '더 좋은 삶을 위한 철학', '마이클 슈어', '김영사', '더 좋은 삶을 위한 철학.jpg', '230', 10000, 200, 8, '복잡한 선택과 함정, 거짓 멘토와 어리석은 조언들로 가득한 이 세상에서 더 나은 선택을 하려는 이들을 위한 철학의 조언 《더 좋은 삶을 위한 철학》. 수천 년 동안 ‘좋은 삶이란 무엇인가’를 고민해온 철학자들의 지혜를 빌려 일상 속 윤리적 딜레마가 충돌하는 순간을 유머러스하게 조명한다. 친구 셔츠가 별로인데 솔직하게 말해줘야 할까? 쇼핑 카트를 굳이 제자리에 돌려놓아야 할까? 백만장자는 식당에서 팁을 얼마나 내야 할까? 지구에는 가난에 고통받는 사람들이 있는데 나는 최신형 핸드폰을 사도 될까? 〈SNL〉 〈더 오피스〉 〈굿 플레이스〉의 스타 프로듀서 마이클 슈어가 선보이는 위트 넘치는 스토리텔링이 유머러스하지만 깊이 있는 답안지를 제공한다.', '23/02/24', '24/05/06');
+insert into book values(book_seq.nextval, 2, '러브 레플리카', '윤이형', '문학동네', '러브 레플리카.jpg', '230', 14500, 200, 10, '제5회 젊은작가상, 제6회 젊은작가상과 제5회 문지문학상을 수상한 윤이형의 세 번째 소설집 『러브 레플리카』. 제5회 젊은작가상 수상작 《쿤의 여행》, 제6회 젊은작가상과 제5회 문지문학상 수상작 《루카》 등 일찍이 그 탁월함을 인정받은 작품들을 포함해 2011년부터 2014년까지 발표된 총 8편의 작품이 수록되어 있다.', '16/01/02', '24/05/06');
+insert into book values(book_seq.nextval, 5, '말을 부수는 말', '이라영', '한겨레출판사', '말을 부수는 말.jpg', '230', 11200, 200, 9, '이 책은 한국 사회의 뜨거운 논제들을 치밀하고 날카롭게 다뤄오며, 시대를 통찰하는 저서를 집필해온 예술사회학자 이라영의 2년 만의 단독 저서이다. 지금 우리에게 가장 유의미한 화두 21개를 꼽고 그 속에서 우리가 무심코 사용하는 ‘권력의 말’과 ‘저항의 말’을 분석한다. 고통, 노동, 시간, 나이 듦, 색깔, 억울함, 망언, 증언, 광주/여성/증언, 세대, 인권, 퀴어, 혐오, 여성, 여성 노동자, 피해, 동물, 몸, 지방, 권력 그리고 아름다움에 대한 담론이 꼬리를 물듯 이어져 시대 흐름을 보여주는 거대한 ‘화두의 지도’를 구성한 점이 매우 새롭다.', '22/09/30', '24/05/06');
+insert into book values(book_seq.nextval, 7, '이기적 유전자', '리처드 도킨스', '을유문화사', '이기적 유전자.jpg', '230', 19800, 200, 83, '1976년, 처음 출간되었을 당시 과학계와 일반 대중들에게 폭발적인 반향을 불러일으키며 세기의 문제작으로 떠오른 『이기적 유전자』는 40년이라는 세월의 검증을 거치며 그 중요성과 깊이를 더욱더 확고하게 인정받았고, 25개 이상의 언어로 번역되었으며 젊은이들이 꼭 읽어야 할 과학계의 고전으로 자리 잡았다. 새로운 디자인과 휴대하기 좋은 판형으로 갈아 입은 이번 40주년 기념판에 새롭게 수록된 에필로그에서 저자는 여전히 ‘이기적 유전자’라는 개념이 갖고 있는 지속적인 타당성을 이야기하며 이 책이 전하는 메시지를 되새긴다.', '23/01/30', '24/05/06');
+insert into book values(book_seq.nextval, 2, '참을 수 없는 존재의 가벼움', '밀란 쿤데라', '민음사', '참을 수 없는 존재의 가벼움.jpg', '34', 11100, 200, 42, '살아 있는 신화가 된 작가 밀란 쿤데라의 대표작 『참을 수 없는 존재의 가벼움』을 밀란 쿤데라가 직접 그린 일러스트를 바탕으로 디자인한 신선한 표지와 장정으로 새롭게 만나볼 수 있다. 역사에서 태어났으되, 역사를 뛰어넘는 인간의 실존 그 자체를 다루고 있는 작품으로, 1960년대 체코와 1970년대 유럽을 뒤흔들어 놓은 무거운 역사의 상처와 개인적 트라우마를 어깨에 짊어진 네 남녀의 생과 사랑의 모습을 그리고 있다.', '18/06/20', '24/05/06');
+insert into book values(book_seq.nextval, 2, '코스모스', '칼 세이건', '사이언스북스', '코스모스.jpg', '230', 13500, 200, 127, '과학 교양서의 고전『코스모스』. 이 책에서 저자는 우주의 탄생과 은하계의 진화, 태양의 삶과 죽음, 우주를 떠돌던 먼지가 의식 있는 생명이 되는 과정, 외계 생명의 존재 문제 등에 관한 내용을 수 백장의 사진과 일러스트를 곁들여 흥미롭게 설명한다. 현대 천문학을 대표하는 저명한 과학자인 저자는 이 책에서 사람들의 상상력을 사로잡고, 난해한 개념을 명쾌하게 해설하는 놀라운 능력을 마음껏 발휘한다.', '10/01/20', '24/05/06');
+insert into book values(book_seq.nextval, 2, '코스모스', '구병모', '위즈덤하우스', '코스모스.jpg', '230', 13200, 200, 127, '소개글', '23/03/08', '24/05/06');
+insert into book values(book_seq.nextval, 2, '코스모스', '구병모', '위즈덤하우스', '코스모스.jpg', '230', 13200, 200, 127, '소개글', '23/03/08', '24/05/06');
+
+col bnum for 9999;
+col cnum for 99
+col title for a20
+col author for a12
+col bimage for a12
+col bqty for 9999
+col price for 99999
+col point for 999
+col sales for 999
+col pubdate for a20
+
+select bnum, cnum, title, author, sales from book;
+ 
+------------장바구니 테이블
+drop table cart cascade constraints purge;
+create table cart(
+	memno number references members(no) on delete set null,
+	bnum number references book(bnum) on delete set null,
+	oqty number not null
+	);
+
+
+------------주문 테이블
+drop table orders cascade constraints purge;
+create table orders(
+	onum number primary key,
+	memno number references members(no) on delete set null,
+	odate date default sysdate not null
+	);
+	
+	
+------------주문 상세 테이블
+drop sequence od_seq;
+create sequence od_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocache;
+
+drop table order_detail cascade constraints purge;
+create table order_detail(
+	odnum number primary key,
+	onum number references orders(onum) on delete set null,
+	bnum number references book(bnum) on delete set null,
+	oqty number not null
+	);
+	

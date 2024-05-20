@@ -1,0 +1,74 @@
+대분류 = level 1 ref=0
+중분류 = level 2 ref=대분류의cnum
+소분류 = level 3 ref=중분류의cnum
+
+---level이 3인 레코드의 가장 상위 카테고리 가져오기
+int cnum = 12;
+level = 3;
+
+for(int i=1; i<level(3); i++){
+	cnum = getRef(cnum);
+}
+
+----------------
+public int getRefByRef(int cnum){
+	int ref -1;
+	String sql = "select ref from Category where cnum = ?";
+	ps = conn.prepareStatement(sql);
+	ps.setInt(1,cnum);
+	rs = ps.executeQuery();
+	if(rs.next()){
+		int ref = rs.getInt("ref");
+	}
+	return ref;
+}
+----------------
+public int getCnumByRef(int cnum){ 
+	int ref -1;
+	String sql = "select cnum from Category where ref = ?";
+	ps = conn.prepareStatement(sql);
+	ps.setInt(1,cnum);
+	rs = ps.executeQuery();
+	if(rs.next()){
+		int ref = rs.getInt("ref");
+	}
+	return ref;
+}
+----------------
+
+---카테고리 정렬
+대분류 정렬 : ref=0 인것들. 대분류no
+중분류 정렬 : ref=대분류의 no인 것들
+소분류 정렬 : ref=중분류의 no인 것들
+
+
+---문학 카테고리의 책들 가져오기
+cnum =1; //문학 카테고리 번호
+
+public Arraylist<BookBean> getBookByCnum(int cnum){
+	Arraylist<BookBean> list = new Arraylist<BookBean>(); 
+	int ref = -1;
+	int cnum_under = -1;
+	
+	cnum_under = getCnumByRef(cnum);
+		
+		String sql = "select * from Category where cnum = ?";
+		ps = conn.prepareStatement(sql);
+	
+		ps.setInt(1,cnum);
+		rs = ps.executeQuery();
+		
+		while(rs.next()){
+			BookBean bb = new BookBean();
+			bb.setBnum(rs.getInt("bnum");
+			bb.setTitle(rs.getString("title");
+			...
+			rs.add(bb)
+		}
+	
+	
+	return list;
+}
+	
+		
+	

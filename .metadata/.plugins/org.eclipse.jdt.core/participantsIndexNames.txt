@@ -1,0 +1,15 @@
+INDEX VERSION 1.131
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1774106190.index
+\BookStore_yhj\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\133668875.index
+\bootstrap\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\151628353.index
+\BookStore_yhj\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3118895231.index
+\BookStore_yhj\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\816031317.index
+\BookStore_yhj\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1403852795.index
+\BookStore_yhj\src\main\java
+C:\Project_yhj\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3241881186.index
+\BookStore_yhj\src\main\java
